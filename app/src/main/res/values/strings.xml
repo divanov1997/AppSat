@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">AppSat2</string>
+    <string name="app_name">AppSat</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_splash">AppSat</string>
     <string name="hello_world">Hello world!</string>
@@ -9,5 +9,7 @@
     <string name="title_activity_hundred_brightest">100 (or so) Brightest Satellites</string>
     <string name="title_activity_menu">Menu</string>
     <string name="title_activity_pos_calc">PosCalc</string>
+    <string name="title_activity_refresh_tle">RefreshTLE</string>
+    <string name="title_activity_sat_menu">SatMenu</string>
 
 </resources>

@@ -1,11 +1,5 @@
 package com.danil.appsat2;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
-import java.util.ArrayList;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -13,6 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
+import java.util.ArrayList;
 
 public class HundredBrightest extends ListActivity {
     /** Called when the activity is first created. */

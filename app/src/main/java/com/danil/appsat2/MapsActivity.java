@@ -3,9 +3,8 @@ package com.danil.appsat2;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -109,4 +108,10 @@ public class MapsActivity extends FragmentActivity {
         return coor;
     }
 
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
 }

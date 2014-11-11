@@ -1,13 +1,5 @@
 package com.danil.appsat2;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import uk.me.chiandh.library.SDP4;
-import uk.me.chiandh.library.SDP4InvalidNumException;
-import uk.me.chiandh.library.SDP4NoLineOneException;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,6 +8,14 @@ import android.widget.TextView;
 
 import com.gano.jsattrack.Utilities.Utilities.Sidereal;
 import com.gano.jsattrack.Utilities.Utilities.Time;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import uk.me.chiandh.library.SDP4;
+import uk.me.chiandh.library.SDP4InvalidNumException;
+import uk.me.chiandh.library.SDP4NoLineOneException;
 
 public class PosCalc extends Activity{
 	
