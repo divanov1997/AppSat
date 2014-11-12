@@ -11,5 +11,8 @@
     <string name="title_activity_pos_calc">PosCalc</string>
     <string name="title_activity_refresh_tle">RefreshTLE</string>
     <string name="title_activity_sat_menu">SatMenu</string>
+    <string name="brightest_promt">Top  100 (Or So) Brightest</string>
+    <string name="title_activity_dashboard_layout">DashboardLayout</string>
+    <string name="title_activity_android_dashboard_design">AndroidDashboardDesignActivity</string>
 
 </resources>

@@ -20,7 +20,7 @@ public class Splash extends Activity{
 			}catch (InterruptedException e)	{
 				e.printStackTrace();
 				}finally{
-                    Intent openMainActivity = new Intent("com.danil.test.MENU");
+                    Intent openMainActivity = new Intent(Splash.this, AndroidDashboardDesignActivity.class);
 					startActivity(openMainActivity);
 				}
 					

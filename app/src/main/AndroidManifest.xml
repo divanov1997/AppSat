@@ -82,6 +82,14 @@
             android:name=".SatMenu"
             android:label="@string/title_activity_sat_menu" >
         </activity>
+        <activity
+            android:name=".DashboardLayout"
+            android:label="@string/title_activity_dashboard_layout" >
+        </activity>
+        <activity
+            android:name=".AndroidDashboardDesignActivity"
+            android:label="@string/title_activity_android_dashboard_design" >
+        </activity>
     </application>
 
 </manifest>
