@@ -1,0 +1,31 @@
+<!-- Your package folder -->
+<com.danil.appsat2.DashboardLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1"
+    android:background="#f8f9fe"
+    android:id="@+id/DashboardLayout">
+    <!--  Special Interest Satellites Button -->
+    <Button
+        android:id="@+id/btn_sisSat"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/satellite_icon_default"
+        android:text="100 (or so) Brightest" />
+
+    <!--  Miscellaneous Satellites Button -->
+    <Button
+        android:id="@+id/btn_miscSat"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/satellite_icon_default"
+        android:text="Space Stations" />
+
+    <!--  Update TLEs Button -->
+    <Button
+        android:id="@+id/btn_updateTLE"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/satellite_icon_default"
+        android:text="Update TLEs" />
+
+
+</com.danil.appsat2.DashboardLayout><!-- From: file:/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/layout/fragment_layout.xml -->

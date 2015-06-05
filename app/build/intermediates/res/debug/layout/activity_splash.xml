@@ -1,0 +1,15 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/splash_backround">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=" "
+        android:id="@+id/splash_tv"
+        android:layout_gravity="bottom"
+        android:textColor="#ffffffff" />
+</LinearLayout><!-- From: file:/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/layout/activity_splash.xml -->

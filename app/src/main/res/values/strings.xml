@@ -14,5 +14,6 @@
     <string name="brightest_promt">Top  100 (Or So) Brightest</string>
     <string name="title_activity_dashboard_layout">DashboardLayout</string>
     <string name="title_activity_android_dashboard_design">AndroidDashboardDesignActivity</string>
+    <string name="title_activity_test">Test</string>
 
 </resources>

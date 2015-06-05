@@ -90,6 +90,18 @@
             android:name=".AndroidDashboardDesignActivity"
             android:label="@string/title_activity_android_dashboard_design" >
         </activity>
+
+        <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        <service
+            android:name=".PosCalcService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
     </application>
 
 </manifest>

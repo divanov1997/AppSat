@@ -14,8 +14,8 @@ import android.widget.ListView;
 
 public class Menu extends ListActivity {
 
-	String category[] = {"Space Stations", "100 (or so) Brightest","AndroidDashboardDesignActivity"};
-	String cl4cat[]  =  {"SpaceStation",   "HundredBrightest","AndroidDashboardDesignActivity"};
+	String category[] = {"Space Stations", "100 (or so) Brightest","AndroidDashboardDesignActivity", "SatMenu"};
+	String cl4cat[]  =  {"SpaceStation",   "HundredBrightest","AndroidDashboardDesignActivity", "SatMenu"};
 
 
 	@Override

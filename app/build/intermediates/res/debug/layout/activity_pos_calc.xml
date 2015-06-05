@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/displaymessagetextview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40dp" />
+        <TextView
+            android:id="@+id/displaymessagetextview2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40dp" />
+        <TextView
+            android:id="@+id/displaymessagetextview3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40dp" />
+        <TextView
+            android:id="@+id/displaymessagetextview4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40dp"  />
+        <TextView
+            android:id="@+id/displaymessagetextview5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40dp" />
+        <TextView
+            android:id="@+id/displaymessagetextview6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40dp"  />
+        <TextView
+            android:id="@+id/displaymessagetextview7"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40dp"  />
+        <TextView
+            android:id="@+id/displaymessagetextview8"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40dp"  />
+        <TextView
+            android:id="@+id/displaymessagetextview9"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40dp"  />
+    </LinearLayout>
+</ScrollView>
+
+<!-- From: file:/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/layout/activity_pos_calc.xml -->

@@ -44,7 +44,7 @@ public class RefreshTLE extends IntentService {
             if(!existfile.exists()){
                 existfile.delete();
             }
-            File newfile = new File(RefreshTLE.this.getFilesDir(), siscat[i]);
+            File newfile = new File(this.getFilesDir(), siscat[i]);
             updateTLE(siscatURL,siscat,newfile, i);
             i++;
         }//end while

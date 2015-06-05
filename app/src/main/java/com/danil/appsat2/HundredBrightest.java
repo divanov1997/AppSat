@@ -25,49 +25,79 @@ public class HundredBrightest extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        ArrayList<String> category = SatName();
+        ArrayList<String> category = ReadFile("brightest.txt", 1);
         
         setListAdapter(new ArrayAdapter<String>(HundredBrightest.this,
 				android.R.layout.simple_list_item_1, category));
         
     }
-   
+    //Reads a file, but only keeps every third line and puts it in a string List
+    public ArrayList<String> ReadFile(String filename, int firstline){
+
+        String strLine;
+        ArrayList<String> arrayList = new ArrayList<String>();
+
+        try{
+            // Open the file
+            AssetManager am = getAssets();
+            InputStream inputStream = am.open(filename);
+
+            // Get the object of DataInputStream
+            DataInputStream in = new DataInputStream(inputStream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            LineNumberReader reader = new LineNumberReader(br);
+
+            //read every third line
+            while ((strLine = reader.readLine()) != null){
+                if ((reader.getLineNumber()+3-firstline) % 3 == 0){
+                    arrayList.add(strLine);
+                }
+            }
+
+            //Close the input stream
+            in.close();
+
+
+        }catch (Exception e){	//Catch exception if any
+            System.err.println("Error: " + e.getMessage());
+        }
+
+        return arrayList;
+
+    }
    public ArrayList<String> SatName(){ 
      
      String strLine;
 	 ArrayList<String> stringList = new ArrayList<String>();
-	 
-	 
-	
- try{
- // Open the file
 
-     AssetManager am = getAssets();
-    InputStream inputStream = am.open("brightest.txt");
+    try{
+        // Open the file
+        AssetManager am = getAssets();
+        InputStream inputStream = am.open("brightest.txt");
  
- // Get the object of DataInputStream
- DataInputStream in = new DataInputStream(inputStream);
- BufferedReader br = new BufferedReader(new InputStreamReader(in));
- LineNumberReader reader = new LineNumberReader(br);
+        // Get the object of DataInputStream
+        DataInputStream in = new DataInputStream(inputStream);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        LineNumberReader reader = new LineNumberReader(br);
  
- //read every third line
- while ((strLine = reader.readLine()) != null){
-	 if ((reader.getLineNumber()+2) % 3 == 0){
-		 stringList.add(strLine);
-	 }
- }
+         //read every third line
+        while ((strLine = reader.readLine()) != null){
+	        if ((reader.getLineNumber()+2) % 3 == 0){
+		         stringList.add(strLine);
+	        }
+        }
 
- //Close the input stream
- in.close();
+        //Close the input stream
+        in.close();
  
  
-   }catch (Exception e){	//Catch exception if any
- System.err.println("Error: " + e.getMessage());
- }
+    }catch (Exception e){	//Catch exception if any
+    System.err.println("Error: " + e.getMessage());
+    }
  
-return stringList;
+    return stringList;
  
- }
+   }
    public ArrayList<String> Line1(){
 	     
 	     String strLine;

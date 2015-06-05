@@ -1,117 +1,163 @@
 package com.danil.appsat2;
 
+import android.app.Service;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity {
+/**************Bind Service imports***********/
+import com.danil.appsat2.PosCalcService.PCSBinder;
 
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    double lat, lon;
+public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener {
+
+    Marker marker; //satellite icon/marker on map
+
+    //Variables to communicate with service
+    PosCalcService PCSservice;
+    boolean isBound = false;
+    Handler updatemap, initmap; //handler to update map
+    Runnable updatemapTask, initmapTask; //runnables for using methods that reire service acces
+    private GoogleMap map; // Might be null if Google Play services APK is not available.
+    Bitmap b; //satelitee icon for map
+    TextView maptext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_maps);
-        setUpMapIfNeeded();
+
+        //put satname on top of activity
         setTitle(getsatname());
+
+        //init map
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        maptext = (TextView) findViewById(R.id.mapsTV); //set up map text view
+
+        //create custom marker
+        Bitmap src = BitmapFactory.decodeResource(this.getResources(),R.drawable.satellite); //load icon
+        b = Bitmap.createScaledBitmap(src, 100, 100 ,false); //scale icon
+
+        //establish connection with Service
+        bindService(createIntents(), PCSconnection, Service.BIND_AUTO_CREATE);
+
+        //check if Service is bound
+        if(isBound = true){
+            Toast.makeText(this, "PosCalcService bound", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private Bundle retrieveBundleIntents() {
+        Bundle bundle = getIntent().getExtras();
+        return bundle;
+    }
+
+    private Intent createIntents() {
+        Intent i = new Intent(this, PosCalcService.class);
+        return i;
     }
 
     private CharSequence getsatname() {
-        Bundle extras = getIntent().getExtras();
-        String name = extras.getString("satname");
+        String name = retrieveBundleIntents().getString("SatName");
         return name;
     }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setUpMapIfNeeded();
-    }
-
-    /**
-     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-     * installed) and the map has not already been instantiated.. This will ensure that we only ever
-     * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p>
-     * If it isn't installed {@link SupportMapFragment} (and
-     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-     * install/update the Google Play services APK on their device.
-     * <p>
-     * A user can return to this FragmentActivity after following the prompt and correctly
-     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-     * have been completely destroyed during this process (it is likely that it would only be
-     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-     * method in {@link #onResume()} to guarantee that it will be called.
-     */
-    private void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                setUpMap();
-            }
-        }
-    }
-
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
-     */
-    private void setUpMap() {
-
-        Bundle extras = getIntent().getExtras();
-        if (extras == null) {
-            return;
-        }
-        LatLng latlng = latlongcor();
-        Resources res = getResources();
-
-        Bitmap src = BitmapFactory.decodeResource(this.getResources(),R.drawable.satellite); //load icon
-        Bitmap b = Bitmap.createScaledBitmap(src, 100, 100 ,false); //scale icon
-        //set marker with satname, and coordiantes
-        mMap.addMarker(new MarkerOptions()
-                .position(latlongcor())
-                .title(extras.getString("satname"))
-                .snippet("Position à " +extras.getString("strDate"))
-                .icon(BitmapDescriptorFactory.fromBitmap(b))
-
-        );
-        //centers camera on marker
-        CameraUpdate update = CameraUpdateFactory.newLatLng(latlng);
-        mMap.moveCamera(update);
-    }
-
-    private LatLng latlongcor() {
-
-        Bundle extras = getIntent().getExtras();
-
-        lat = extras.getDouble("latitude");
-        lon = extras.getDouble("longitude");
-        LatLng coor = new LatLng(lat, lon);
-        return coor;
-    }
-
 
     @Override
     protected void onStop() {
         super.onStop();
+        updatemap.removeCallbacks(updatemapTask); //stops retrieving data from service
         finish();
     }
+
+    /**********************************Binding with Service methods****************************/
+    private ServiceConnection PCSconnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            PCSBinder binder = (PCSBinder) iBinder;
+            PCSservice = binder.getService();
+            isBound = true;
+
+            initmap = new Handler();
+            initmapTask = new Runnable() { //initialise marker in map (first calculated position
+                @Override
+                public void run() {
+                    markerControl(PCSservice.latlng(retrieveBundleIntents())); //create a marker at given position
+                }
+            };
+            initmapTask.run(); //run the actual initialisation of the marker
+
+            updatemap = new Handler();
+            updatemapTask = new Runnable() { //move marker to new coordinates
+                @Override
+                public void run() {
+
+                    Log.i("HANDLER", "Handler running"); //DEBUG
+                    moveMarker(PCSservice.latlng(retrieveBundleIntents()), PCSservice.getVelocity()); //update marker to new position, diplaying it's speed and pos
+                    Log.i("HANDLER", "PCSService : " + PCSservice.latlng(retrieveBundleIntents()).toString()); //DEBUG
+
+                    updatemap.postDelayed(updatemapTask, 100); //run handler every 5000 milliseconds
+                }
+
+                ;//run method end
+            };//updatemapTask end
+            updatemap.post(updatemapTask); //actually run the updatemapTask
+
+        }
+
+
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            isBound = false;
+
+        }
+    };
+
+    private void markerControl(LatLng coor) { //moves marker to desired location
+        if(marker!= null) {
+            marker.remove();
+        }
+        marker = map.addMarker(new MarkerOptions().position(coor) //sets marker at calculated position
+                .icon(BitmapDescriptorFactory.fromBitmap(b)));    //sets custom icon for marker
+
+    }
+
+    private void moveMarker(LatLng newcoor, double velocity){
+        marker.remove();
+        markerControl(newcoor);
+        updateText(newcoor, velocity);
+        map.moveCamera(CameraUpdateFactory.newLatLng(newcoor));
+
+    }
+
+    private void updateText(LatLng coor, double velocity){
+        maptext.setTextColor(Color.WHITE);
+        maptext.setText("Velocity : " + velocity + " [km/s]\nLatitude : " + coor.latitude + "\nLongitude : " + coor.longitude);
+    }
+
 }

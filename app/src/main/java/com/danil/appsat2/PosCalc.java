@@ -19,8 +19,8 @@ import uk.me.chiandh.library.SDP4NoLineOneException;
 
 public class PosCalc extends Activity{
 	
-	double[] aRect, aSpher;
-	double x,y,z, xx,yy,zz,latitude,longitude, rsqrt, cos,tanlat, tanlong,r,xy2, xy2sqrt, gmst;
+	double[] coor;
+	double x,y,z,latitude,longitude, rsqrt, cos,tanlat,r,xy2, xy2sqrt, gmst;
 	protected double a = 6378.135; //radius of the earth in km
 	String xcor,ycor,zcor,acor,bcor,rcor;
 
@@ -57,9 +57,9 @@ public class PosCalc extends Activity{
 	    	if (extras == null) {
 	    		return;
 	    	}
-	    String Line1 = extras.getString("DataLine1");
-	    String Line2 = extras.getString("DataLine2");
-	    String satname = extras.getString("satname");
+	    String Line1 = extras.getString("TLE_Line1");
+	    String Line2 = extras.getString("TLE_Line2");
+	    String satname = extras.getString("SatName");
 
 		//Create instace of SDP4 class
 		SDP4 sdp4 = new SDP4();
@@ -71,6 +71,7 @@ public class PosCalc extends Activity{
 
 		//get Julian Date
 		double juldate = (System.currentTimeMillis()) / 86400000. + 587.5 - 10000.;
+
 
         //get modified julian date (Julian date minus 2400000.5) (UT)
         Time t = new Time();
@@ -102,11 +103,11 @@ public class PosCalc extends Activity{
 
 		
 		sdp4.GetPosVel(juldate);
-		aRect = sdp4.itsR;
-		int l = aRect.length;
-		x = aRect[0]*1000000;
-		y = aRect[1]*1000000;
-		z = aRect[2]*1000000;
+		coor = sdp4.itsR;
+		int l = coor.length;
+		x = coor[0]*1000000;
+		y = coor[1]*1000000;
+		z = coor[2]*1000000;
 
 		String length = Integer.toString(l);
 		
@@ -123,8 +124,7 @@ public class PosCalc extends Activity{
 
 
         //get gmst for ECI to ECEF conversion
-
-        double gmst = Sidereal.Greenwich_Mean_Sidereal_Deg(mjd);
+        gmst = Sidereal.Greenwich_Mean_Sidereal_Deg(mjd);
 
         //get longitude
 
