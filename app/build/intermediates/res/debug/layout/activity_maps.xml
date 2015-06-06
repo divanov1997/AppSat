@@ -15,7 +15,8 @@ tools:context=".MapActivity" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,6 +26,56 @@ tools:context=".MapActivity" >
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             />
+
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:background="#50000000"
+            android:longClickable="true"
+            android:id="@+id/radioGroup">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/rb_hybrid"
+                android:text="Hybrid"
+                android:textColor="#FFFFFF"
+                android:onClick="onRadioButtonClick"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/rb_normal"
+                android:text="Normal"
+                android:textColor="#FFFFFF"
+                android:onClick="onRadioButtonClick"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/rb_sat"
+                android:text="Satellite"
+                android:textColor="#FFFFFF"
+                android:onClick="onRadioButtonClick"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/rb_terrain"
+                android:text="Terrain"
+                android:textColor="#FFFFFF"
+                android:onClick="onRadioButtonClick"
+                />
+            </RadioGroup>
+
     </RelativeLayout>
 
 </FrameLayout><!-- From: file:/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/layout/activity_maps.xml -->

@@ -20,7 +20,15 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click Me !"
+        android:text="Calculate Position"
         android:id="@+id/button"
         android:layout_gravity="center_horizontal" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Data"
+        android:id="@+id/refreshTLEbutton"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onrefreshTLEbuttonClick"
+        />
 </LinearLayout>

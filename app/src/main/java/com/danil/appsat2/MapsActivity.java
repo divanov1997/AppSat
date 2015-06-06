@@ -15,6 +15,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +34,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 /**************Bind Service imports***********/
 import com.danil.appsat2.PosCalcService.PCSBinder;
 
-public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener {
+public class MapsActivity extends FragmentActivity {
 
     Marker marker; //satellite icon/marker on map
 
@@ -55,7 +57,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         //init map
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         maptext = (TextView) findViewById(R.id.mapsTV); //set up map text view
 
         //create custom marker
@@ -160,4 +161,33 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         maptext.setText("Velocity : " + velocity + " [km/s]\nLatitude : " + coor.latitude + "\nLongitude : " + coor.longitude);
     }
 
+    public void onRadioButtonClick(View v){
+
+        //is the button checked
+        boolean checked = ((RadioButton) v).isChecked();
+
+        //check wich radio button is checked
+        switch(v.getId()) {
+            case R.id.rb_hybrid:
+                if(checked){
+                    map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                }
+                break;
+            case R.id.rb_normal:
+                if(checked){
+                    map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                }
+                break;
+            case R.id.rb_sat:
+                if(checked){
+                    map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                }
+                break;
+            case R.id.rb_terrain:
+                if(checked){
+                    map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                }
+                break;
+        }
+    }
 }

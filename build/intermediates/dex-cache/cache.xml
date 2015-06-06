@@ -2,23 +2,11 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/Danil/AndroidstudioProjects/AppSat2/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-bca9cd8c8082330ef7549e0398af852faae531fd.jar"
-        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
-    <item
         dex="/Users/Danil/AndroidstudioProjects/AppSat2/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-2e96be7eeb32ed99daac61121b35d52b58a38079.jar"
         jar="/Users/Danil/AndroidstudioProjects/AppSat2/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
-    <item
-        dex="/Users/Danil/AndroidstudioProjects/AppSat2/app/build/intermediates/pre-dexed/debug/classes-1c5543c14b8c03a934a2a122739d8fe364731290.jar"
-        jar="/Users/Danil/AndroidstudioProjects/AppSat2/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.89/classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="d71573c9c5ea98a8db47ad6ff993a63d492b3bfa"/>
     <item
         dex="/Users/Danil/AndroidstudioProjects/AppSat2/app/build/intermediates/pre-dexed/debug/classes-f82fcc727bf76311111695d23a43ed333983ea0e.jar"
         jar="/Users/Danil/AndroidstudioProjects/AppSat2/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/classes.jar"
@@ -31,5 +19,17 @@
         jumboMode="false"
         revision="20.0.0"
         sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+    <item
+        dex="/Users/Danil/AndroidstudioProjects/AppSat2/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-f9fbe499e393ef4048f52df771bf9733fc79c4f6.jar"
+        jar="/Users/Danil/SDKs/Android SDK/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
+        dex="/Users/Danil/AndroidstudioProjects/AppSat2/app/build/intermediates/pre-dexed/debug/classes-1c5543c14b8c03a934a2a122739d8fe364731290.jar"
+        jar="/Users/Danil/AndroidstudioProjects/AppSat2/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.89/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="d71573c9c5ea98a8db47ad6ff993a63d492b3bfa"/>
 
 </pre-dex-items>

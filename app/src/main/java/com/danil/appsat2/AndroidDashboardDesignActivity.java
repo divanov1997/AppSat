@@ -87,7 +87,8 @@ public class AndroidDashboardDesignActivity extends Activity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Update TLEs ?")
+            builder.setTitle("Update TLEs ?");
+            builder.setMessage("Would you like to update TLE data ?")
                     .setPositiveButton("Update", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Intent refreshTLE = new Intent(AndroidDashboardDesignActivity.this, RefreshTLE.class);

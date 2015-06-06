@@ -15495,6 +15495,11 @@ normal
                 qualifiers=""
                 type="layout" />
             <file
+                name="android_dashboard_design"
+                path="/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/menu/android_dashboard_design.xml"
+                qualifiers=""
+                type="menu" />
+            <file
                 name="dashboard_layout"
                 path="/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/menu/dashboard_layout.xml"
                 qualifiers=""
@@ -15530,12 +15535,30 @@ normal
                 qualifiers=""
                 type="menu" />
             <file
+                name="test"
+                path="/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/menu/test.xml"
+                qualifiers=""
+                type="menu" />
+            <file
                 path="/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/values/dimens.xml"
                 qualifiers="" >
                 <dimen name="activity_horizontal_margin" >16dp
                 </dimen>
                 <dimen name="activity_vertical_margin" >16dp
                 </dimen>
+            </file>
+            <file
+                path="/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/values/ids.xml"
+                qualifiers="" >
+                <item
+                    name="btn_updateTLE"
+                    type="id"/>
+                <item
+                    name="btn_sisSat"
+                    type="id"/>
+                <item
+                    name="btn_miscSat"
+                    type="id"/>
             </file>
             <file
                 path="/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/values/strings.xml"
@@ -15554,9 +15577,9 @@ normal
                 </string>
                 <string name="title_activity_hundred_brightest" >100 (or so) Brightest Satellites
                 </string>
-                <string name="title_activity_refresh_tle" >RefreshTLE
-                </string>
                 <string name="title_activity_maps" >Map
+                </string>
+                <string name="title_activity_refresh_tle" >RefreshTLE
                 </string>
                 <string name="title_activity_splash" >AppSat
                 </string>
@@ -15635,7 +15658,7 @@ bold
 
                 <style
                     name="AppTheme"
-                    parent="android:Theme.Holo.Light.DarkActionBar" >
+                    parent="Theme.AppCompat.Light.DarkActionBar" >
 
                     <!-- Customize your theme here. -->
                 </style>
@@ -15646,29 +15669,6 @@ bold
                 <dimen name="activity_horizontal_margin" >64dp
                 </dimen>
             </file>
-            <file
-                name="android_dashboard_design"
-                path="/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/menu/android_dashboard_design.xml"
-                qualifiers=""
-                type="menu" />
-            <file
-                path="/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/values/ids.xml"
-                qualifiers="" >
-                <item
-                    name="btn_updateTLE"
-                    type="id"/>
-                <item
-                    name="btn_sisSat"
-                    type="id"/>
-                <item
-                    name="btn_miscSat"
-                    type="id"/>
-            </file>
-            <file
-                name="test"
-                path="/Users/Danil/AndroidstudioProjects/AppSat2/app/src/main/res/menu/test.xml"
-                qualifiers=""
-                type="menu" />
         </source>
         <source path="/Users/Danil/AndroidstudioProjects/AppSat2/app/build/generated/res/rs/debug" />
         <source path="/Users/Danil/AndroidstudioProjects/AppSat2/app/build/generated/res/generated/debug" />
