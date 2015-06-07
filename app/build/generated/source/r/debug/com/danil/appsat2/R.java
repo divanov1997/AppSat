@@ -1315,7 +1315,7 @@ containing a value of this type.
         public static final int splash_backround=0x7f02007d;
     }
     public static final class id {
-        public static final int DashboardLayout=0x7f070067;
+        public static final int DashboardLayout=0x7f070066;
         public static final int action_bar=0x7f070031;
         public static final int action_bar_activity_content=0x7f070026;
         public static final int action_bar_container=0x7f070030;
@@ -1327,7 +1327,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f070027;
         public static final int action_menu_presenter=0x7f070028;
         public static final int action_mode_close_button=0x7f070039;
-        public static final int action_settings=0x7f070068;
+        public static final int action_settings=0x7f070067;
         public static final int activity_chooser_view_content=0x7f07003a;
         public static final int always=0x7f070012;
         public static final int beginning=0x7f07000a;
@@ -1364,7 +1364,7 @@ containing a value of this type.
         public static final int holo_light=0x7f070018;
         public static final int home=0x7f07002c;
         public static final int homeAsUp=0x7f070005;
-        public static final int home_root=0x7f070066;
+        public static final int home_root=0x7f070065;
         public static final int hybrid=0x7f07000f;
         public static final int icon=0x7f07003f;
         public static final int ifRoom=0x7f070011;
@@ -1388,7 +1388,6 @@ containing a value of this type.
         public static final int rb_normal=0x7f070055;
         public static final int rb_sat=0x7f070056;
         public static final int rb_terrain=0x7f070057;
-        public static final int refreshTLEbutton=0x7f070064;
         public static final int sandbox=0x7f07001a;
         public static final int satellite=0x7f07000d;
         public static final int search_badge=0x7f070047;
@@ -1408,7 +1407,7 @@ containing a value of this type.
         public static final int showTitle=0x7f070006;
         public static final int spinner_cat=0x7f070061;
         public static final int spinner_satnames=0x7f070062;
-        public static final int splash_tv=0x7f070065;
+        public static final int splash_tv=0x7f070064;
         public static final int split_action_bar=0x7f070033;
         public static final int strict_sandbox=0x7f07001b;
         public static final int submit_area=0x7f07004e;

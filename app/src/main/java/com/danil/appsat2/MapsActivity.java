@@ -33,6 +33,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 /**************Bind Service imports***********/
 import com.danil.appsat2.PosCalcService.PCSBinder;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.PolylineOptionsCreator;
 
 public class MapsActivity extends FragmentActivity {
 
@@ -41,8 +44,9 @@ public class MapsActivity extends FragmentActivity {
     //Variables to communicate with service
     PosCalcService PCSservice;
     boolean isBound = false;
-    Handler updatemap, initmap; //handler to update map
-    Runnable updatemapTask, initmapTask; //runnables for using methods that reire service acces
+    PolylineOptions sat_trajectory_options; //sat projection
+    Handler updatemap, initmap, orbit_trajectory; //handler to update map
+    Runnable updatemapTask, initmapTask, orbit_trajectoryTask; //runnables for using methods that require service access
     private GoogleMap map; // Might be null if Google Play services APK is not available.
     Bitmap b; //satelitee icon for map
     TextView maptext;
@@ -111,7 +115,18 @@ public class MapsActivity extends FragmentActivity {
                 }
             };
             initmapTask.run(); //run the actual initialisation of the marker
-
+            /*
+            orbit_trajectory = new Handler();
+            orbit_trajectoryTask = new Runnable() {
+                @Override
+                public void run() {
+                    sat_trajectory_options = new PolylineOptions()              //create polyline options for a trajectory poly line
+                            .addAll(PCSservice.orbit_trajectory(retrieveBundleIntents(), 5))
+                            .geodesic(true);
+                }
+            };
+            orbit_trajectory.post(orbit_trajectoryTask);
+*/
             updatemap = new Handler();
             updatemapTask = new Runnable() { //move marker to new coordinates
                 @Override
@@ -139,6 +154,7 @@ public class MapsActivity extends FragmentActivity {
         }
     };
 
+    //creates satelite by setting a cusotm bitmap
     private void markerControl(LatLng coor) { //moves marker to desired location
         if(marker!= null) {
             marker.remove();
@@ -148,6 +164,7 @@ public class MapsActivity extends FragmentActivity {
 
     }
 
+    //used to "move" the sat icon over the map
     private void moveMarker(LatLng newcoor, double velocity){
         marker.remove();
         markerControl(newcoor);
@@ -156,11 +173,13 @@ public class MapsActivity extends FragmentActivity {
 
     }
 
+    //updates text that displays lat and long on the screen
     private void updateText(LatLng coor, double velocity){
         maptext.setTextColor(Color.WHITE);
         maptext.setText("Velocity : " + velocity + " [km/s]\nLatitude : " + coor.latitude + "\nLongitude : " + coor.longitude);
     }
 
+    //switches map type
     public void onRadioButtonClick(View v){
 
         //is the button checked

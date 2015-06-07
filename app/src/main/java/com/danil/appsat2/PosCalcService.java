@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import uk.me.chiandh.library.SDP4;
 import uk.me.chiandh.library.SDP4InvalidNumException;
@@ -22,10 +23,16 @@ import uk.me.chiandh.library.SDP4NoLineOneException;
 public class PosCalcService extends Service {
 
     /****************PosCalc variables**************/
-    double[] coor;
-    private double x,y,z,latitude,longitude, rsqrt, cos,tanlat,r,xy2, xy2sqrt, gmst, velocity;
+    double[] coor; //array use in LatLngCalc
+    LatLng LatLongCalc_result; //result of LatLngCalc
+    List<LatLng> orbit_trajectory_results; //orbit_trajectory results
+    private double x,y,z,latitude,longitude, rsqrt, cos,tanlat,r,xy2, xy2sqrt, gmst, velocity; //vas for LatLngCalc
+    private long init_time,intermidiate_time; //variables used in orbit_trajectory()
     protected double a = 6378.135; //radius of the earth in km
-    String strDate;
+    protected long HtoMillis = 3600000; //1h in milliseconds
+    protected long MtoMillis = 60000; //1 minute in milliseconds
+    protected double HtoM = 60; //1H in minutes
+    String strDate; //Nice representation of time HH:mm:ss
 
     private final IBinder PCSbinder = new PCSBinder();
 
@@ -37,7 +44,7 @@ public class PosCalcService extends Service {
 
     public PosCalcService(){}
 
-    public void LatLongCalc(Bundle bundle) {
+    public LatLng LatLongCalc(Bundle bundle, long current_sys_time ) {
 
         String Line1 = bundle.getString("TLE_Line1");
         String Line2 = bundle.getString("TLE_Line2");
@@ -51,7 +58,7 @@ public class PosCalcService extends Service {
         strDate = sdfDate.format(date);
 
         //get Julian Date
-        double juldate = (System.currentTimeMillis()) / 86400000. + 587.5 - 10000.;
+        double juldate = (current_sys_time) / 86400000. + 587.5 - 10000.;
 
 
         //get modified julian date (Julian date minus 2400000.5) (UT)
@@ -110,8 +117,6 @@ public class PosCalcService extends Service {
         }
         //ECI TO ECEF
         longitude = longitude -gmst;
-        //TESTS
-
 
         //Get Altitude (a = radius of the earth)
         rsqrt = (x*x) +(y*y) + (z*z);
@@ -120,13 +125,30 @@ public class PosCalcService extends Service {
         //calculate velocity
         velocity = Math.sqrt(Math.pow(sdp4.itsV[0], 2)*Math.pow(sdp4.itsV[1], 2)*Math.pow(sdp4.itsV[2], 2));
 
+        //results
+        LatLongCalc_result = new LatLng(latitude,longitude);
+        return LatLongCalc_result;
     }
 
+    //return satellites current position
     public LatLng latlng(Bundle bundle){
-        LatLongCalc(bundle);
-        LatLng coor = new LatLng(latitude,longitude);
+        LatLng coor = LatLongCalc(bundle, System.currentTimeMillis());
         return coor;
     }
+
+    //return list of satelllites positions every "step" minutes 12h in the past and 12h in future
+    public List<LatLng> orbit_trajectory(Bundle bundle, int step){
+
+        init_time = System.currentTimeMillis()- 12*HtoMillis; //init time 12h before current time
+        long loop_init = (long) (12*HtoM/step); //number of iterations of step to get to 720min (12h)
+
+        for(long i = -loop_init; i<loop_init; i++){ //run loop from -12h to 12h by "step" steps
+            init_time = init_time + (i*step)*MtoMillis; //init_time + 5 minutes at each iteration
+            orbit_trajectory_results.add(LatLongCalc(bundle, init_time));
+        }
+    return orbit_trajectory_results;
+    }
+
 
     //will return time of last latlng object, so must be called after latlng method
     public String getTime(){
