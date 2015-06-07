@@ -115,7 +115,7 @@ public class MapsActivity extends FragmentActivity {
                 }
             };
             initmapTask.run(); //run the actual initialisation of the marker
-            /*
+
             orbit_trajectory = new Handler();
             orbit_trajectoryTask = new Runnable() {
                 @Override
@@ -126,7 +126,7 @@ public class MapsActivity extends FragmentActivity {
                 }
             };
             orbit_trajectory.post(orbit_trajectoryTask);
-*/
+
             updatemap = new Handler();
             updatemapTask = new Runnable() { //move marker to new coordinates
                 @Override
@@ -169,8 +169,6 @@ public class MapsActivity extends FragmentActivity {
         marker.remove();
         markerControl(newcoor);
         updateText(newcoor, velocity);
-        map.moveCamera(CameraUpdateFactory.newLatLng(newcoor));
-
     }
 
     //updates text that displays lat and long on the screen
@@ -179,7 +177,11 @@ public class MapsActivity extends FragmentActivity {
         maptext.setText("Velocity : " + velocity + " [km/s]\nLatitude : " + coor.latitude + "\nLongitude : " + coor.longitude);
     }
 
-    //switches map type
+    //centers camera over marker when clicked
+    public void onSatelliteButtonClick(View v){
+        map.moveCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+    }
+    //Controls map preferences (switches map type/adds polyline for sat trajectory)
     public void onRadioButtonClick(View v){
 
         //is the button checked
@@ -207,6 +209,10 @@ public class MapsActivity extends FragmentActivity {
                     map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
                 }
                 break;
+            case R.id.rb_satorbit:
+                if(checked){
+                    map.addPolyline(sat_trajectory_options);
+                }
         }
     }
 }
