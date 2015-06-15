@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class PosCalcService extends Service {
     double[] coor; //array use in LatLngCalc
     LatLng LatLongCalc_result; //result of LatLngCalc
     List<LatLng> orbit_trajectory_results; //orbit_trajectory results
-    private double x,y,z,latitude,longitude, rsqrt, cos,tanlat,r,xy2, xy2sqrt, gmst, velocity; //vas for LatLngCalc
-    private long init_time,intermidiate_time; //variables used in orbit_trajectory()
+    private double x,y,z,latitude,longitude, rsqrt, cos,tanlat,r,xy2, xy2sqrt, gmst, velocity,orbit_period; //vas for LatLngCalc
+    private long init_time; //variables used in orbit_trajectory()
     protected double a = 6378.135; //radius of the earth in km
     protected long HtoMillis = 3600000; //1h in milliseconds
     protected long MtoMillis = 60000; //1 minute in milliseconds
@@ -90,6 +91,7 @@ public class PosCalcService extends Service {
         }
 
 
+        //get position and velocity of sat
         sdp4.GetPosVel(juldate);
         coor = sdp4.itsR;
         //scale coordiantes
@@ -125,9 +127,17 @@ public class PosCalcService extends Service {
         //calculate velocity
         velocity = Math.sqrt(Math.pow(sdp4.itsV[0], 2)*Math.pow(sdp4.itsV[1], 2)*Math.pow(sdp4.itsV[2], 2));
 
+        //calculate orbital period
+        orbitalPeriod(Line2);
         //results
         LatLongCalc_result = new LatLng(latitude,longitude);
         return LatLongCalc_result;
+    }
+
+    private void orbitalPeriod(String Line2) {
+        //retrieve mean motion from TLE Line 2, convert string to double
+        double rev_per_day = Double.parseDouble(Line2.substring(53,64));
+        orbit_period = 24/rev_per_day;
     }
 
     //return satellites current position
@@ -136,15 +146,19 @@ public class PosCalcService extends Service {
         return coor;
     }
 
-    //return list of satelllites positions every "step" minutes 12h in the past and 12h in future
+    //return list of satelllites positions every "step" minutes during one orbit
     public List<LatLng> orbit_trajectory(Bundle bundle, int step){
 
-        init_time = System.currentTimeMillis()- 12*HtoMillis; //init time 12h before current time
-        long loop_init = (long) (12*HtoM/step); //number of iterations of step to get to 720min (12h)
-
+        orbit_trajectory_results = new ArrayList<LatLng>();
+        init_time = (long) (System.currentTimeMillis()- (getOrbitPeriod()/2)*HtoMillis); //init time 12h before current time
+        long loop_init = (long) (getOrbitPeriod()*HtoM/step); //number of iterations of step to get to 720min (12h)
         for(long i = -loop_init; i<loop_init; i++){ //run loop from -12h to 12h by "step" steps
             init_time = init_time + (i*step)*MtoMillis; //init_time + 5 minutes at each iteration
-            orbit_trajectory_results.add(LatLongCalc(bundle, init_time));
+
+            if(orbit_trajectory_results == null){
+                Log.i("PosCalcService", "orbit_trajectory_results = null ");
+            }else{
+            orbit_trajectory_results.add(LatLongCalc(bundle, init_time));}
         }
     return orbit_trajectory_results;
     }
@@ -155,6 +169,7 @@ public class PosCalcService extends Service {
         return strDate;
     }
 
+    public double getOrbitPeriod(){return orbit_period;}
     public double getVelocity() { return velocity; }
 
     @Override
